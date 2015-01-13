@@ -25,6 +25,8 @@ where ever error occurrs send the single aquajsError from the next function
 
 Use Case 1:
 
+var aquaError = require('aquajs-error'),
+
 next(new aquaError("samePrimarySecondaryService"));
 
 Resposne :
@@ -35,6 +37,8 @@ Resposne :
 Use Case 2 :
 
 For collection of errors
+var aquaError = require('aquajs-error'),errorList = require(path.join($dirPaths.serverDir,'error','aquajs-errors'));
+
  errorList = new errorList();
  errorList.addError("noContent");
  errorList.addError("notModified");
