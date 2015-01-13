@@ -1,0 +1,41 @@
+{
+  "name": "aquajs-error",
+  "version": "0.1.2",
+  "description": "aqua js errror",
+  "keywords": [
+    "error"
+  ],
+  "homepage": "",
+  "license": "",
+  "engines": {
+    "node": ">=0.6.0"
+  },
+  "maintainers": [
+    {
+      "name": "xxxxx",
+      "email": "xxxxx"
+    },
+    {
+      "name": "xxxxxx",
+      "email": "xxxxxx"
+    }
+  ],
+  "bugs": {
+    "url": "http://equinix.com/aquajs-error"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:equinix/gse-common.git"
+  },
+  "dependencies": {
+    "randomstring": "latest",
+    "js-beautify": "latest"
+  },
+  "devDependencies": {
+    "nodeunit": "~>0.8.0"
+  },
+  "main": "./index.js",
+  "gypfile": true,
+  "readme": "aqua js error",
+  "readmeFilename": "README.md"
+}
