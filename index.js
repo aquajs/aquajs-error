@@ -36,46 +36,53 @@ var path= require('path'),
  */
 
 var AquaJsError = function (msgKey, additionalMsg) {
-  var config,extendConfig,
-      customErr = Error.apply(this);
-  customErr.name = "AquaJSCustomErr-" + randomstring.generate(10);
-  if (typeof msgKey === 'object') { // For List of Errors
-    this.message = msgKey;
-  } else if (undefined !== aquajsErrorConstant || undefined !== extendedErrorConstant) {//For JSON String
-    extendConfig = extendedErrorConstant[msgKey];
-    config = aquajsErrorConstant[msgKey];
-    if(undefined != extendConfig) {
-      this.statusCode = extendConfig.code || statusCodes[extendConfig.code];
-      this.status = extendConfig.status;
-      this.message = additionalMsg || extendConfig.message;
-      this.moreinfo = extendConfig.moreinfo;
-    }else if (undefined !== config) {
-      this.statusCode = extendConfig.code || statusCodes[extendConfig.code];
-      this.status = config.status;
-      this.message =  additionalMsg || config.message ;
-      this.moreinfo =  config.moreinfo;
-    }else {
-      this.status = "400";
-      if (undefined !== additionalMsg) {
-        this.message = msgKey + " : " + additionalMsg;
-      } else {
-        this.message = msgKey;
-      }
-    }
-  } else {
-    if (undefined !== additionalMsg) {
-      if (undefined !== msgKey) {
-        this.status = "400";
-        this.message = msgKey + " : " + additionalMsg;
-      } else {
-        this.status = "500";
-        this.message = "please provide the proper framework configuration";
-      }
+    var config,extendConfig,
+        customErr = Error.apply(this);
+
+    this.name = "AquaJSCustomErr-" + randomstring.generate(10);
+
+    if (typeof msgKey === 'object') { // For List of Errors
+        if(msgKey.message){
+            this.message = msgKey.message;
+        }else {
+            this.message = msgKey;
+        }
+
+    } else if ( undefined !== extendedErrorConstant || undefined !== aquajsErrorConstant ) {//For JSON String
+        extendConfig = extendedErrorConstant[msgKey];
+        config = aquajsErrorConstant[msgKey];
+        if(undefined != extendConfig) {
+            this.statusCode = extendConfig.code || statusCodes[extendConfig.code];
+            this.status = extendConfig.status;
+            this.message = additionalMsg || extendConfig.message;
+            this.moreinfo = extendConfig.moreinfo;
+        }else if (undefined !== config) {
+            this.statusCode = extendConfig.code || statusCodes[extendConfig.code];
+            this.status = config.status;
+            this.message =  additionalMsg || config.message ;
+            this.moreinfo =  config.moreinfo;
+        }else {
+            this.status = "400";
+            if (undefined !== additionalMsg) {
+                this.message = msgKey + " : " + additionalMsg;
+            } else {
+                this.message = msgKey;
+            }
+        }
     } else {
-      this.message = msgKey;
+        if (undefined !== additionalMsg) {
+            if (undefined !== msgKey) {
+                this.status = "400";
+                this.message = msgKey + " : " + additionalMsg;
+            } else {
+                this.status = "500";
+                this.message = "please provide the proper framework configuration";
+            }
+        } else {
+            this.message = msgKey;
+        }
     }
-  }
-  return this;
+    return this;
 };
 AquaJsError.prototype = Error.prototype;
 
