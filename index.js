@@ -87,3 +87,4 @@ var AquaJsError = function (msgKey, additionalMsg) {
 AquaJsError.prototype = Error.prototype;
 
 module.exports = AquaJsError;
+
