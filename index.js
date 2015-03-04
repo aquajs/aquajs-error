@@ -44,6 +44,7 @@ var AquaJsError = function (msgKey, additionalMsg) {
     if (typeof msgKey === 'object') { // For List of Errors
         if(msgKey.message){
             this.message = msgKey.message;
+            this.status = msgKey.status;
         }else {
             this.message = msgKey;
         }
