@@ -1,11 +1,11 @@
 {
   "name": "aquajs-error",
-  "version": "1.4.29",
+  "version": "0.2.2",
   "description": "aqua js errror",
   "keywords": [
     "error"
   ],
-  "homepage": "",
+  "homepage": "https://github.com/aquajs/aquajs-error",
   "license": "",
   "engines": {
     "node": ">=0.6.0"
@@ -26,6 +26,9 @@
   "repository": {
     "type": "git",
     "url": "git://github.com:equinix/gse-common.git"
+  },
+  "publishConfig": {
+    "registry": "http://nexus.corp.equinix.com/nexus/content/repositories/Equinix-AquaJS-Release/"
   },
   "dependencies": {
     "randomstring": "latest",
