@@ -1,0 +1,16 @@
+{
+  "invalidParameterValue": {
+    "status": 400,
+    "code": 40001,
+    "property": "",
+    "message": "Invalid Parameter Value",
+    "moreinfo": "Change set validate/deploy fails with error invalid parameter value if it contains a profile with View All Data permission"
+  },
+  "internalServerError": {
+    "status": 500,
+    "code": 50001,
+    "property": "",
+    "message": "Something went wrong. Please try after some time",
+    "moreinfo": "Something went wrong. Please try after some time"
+  }
+}

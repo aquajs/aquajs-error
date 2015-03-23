@@ -35,7 +35,11 @@
     "js-beautify": "latest"
   },
   "devDependencies": {
-    "nodeunit": "~>0.8.0"
+    "nodeunit": "~>0.8.0",
+    "mocha": "^2.0.1"
+  },
+  "scripts": {
+    "test": "mocha"
   },
   "main": "./index.js",
   "gypfile": true,
