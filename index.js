@@ -1,11 +1,10 @@
 "use strict";
 
 var path = require('path'),
-    aquajsErrorConstant = require(path.join($dirPaths.serverDir, 'config', 'env', 'error-constants')),
-    extendedErrorConstant = require(path.join($dirPaths.serverDir, 'config', 'env', 'extended-error-constants')),
-    statusCodes = require('http').STATUS_CODES,
-    randomstring = require('randomstring');
-
+  extendedErrorConstant = require(path.join($dirPaths.serverDir, 'config', 'env', 'extended-error-constants')),
+  errorConstant = require(path.join($dirPaths.serverDir, 'config', 'env', 'error-constants')),
+  statusCodes = require('http').STATUS_CODES,
+  errorUtil = require(path.join(__dirname, 'util', 'errorUtil'));
 /**
  * AquaJS Error Constructor to throw the Error from the framework
  * Users will be able to throw single error or a collection of errors
@@ -35,54 +34,37 @@ var path = require('path'),
  * @return {Aquajs Error Object}
  */
 
-var AquaJsError = function (msgKey, additionalMsg) {
-  var config, extendConfig,
-      customErr = Error.apply(this);
+var AquaJsError = function (msgData) {
+  var config,
+    customErr = Error.apply(this);
 
-  this.name = "AquaJSCustomErr-" + randomstring.generate(10);
-
-  if (typeof msgKey === 'object') {
-    // For List of Errors
-    if (msgKey.message) {
-      this.message = msgKey.message;
-      this.status = msgKey.statusCode;
+  if (typeof msgData === 'array') { // For List of Errors
+    this.message = msgData;
+  } else if (typeof msgData === 'object') {
+    if (msgData.message) {
+      this.message = msgData.message;
+      this.status = msgData.statusCode;
     } else {
-      this.message = msgKey;
+      this.message = msgData;
     }
-
-  } else if (undefined !== extendedErrorConstant || undefined !== aquajsErrorConstant) {//For JSON String
-    extendConfig = extendedErrorConstant[msgKey];
-    config = aquajsErrorConstant[msgKey];
-    if (undefined != extendConfig) {
-      this.statusCode = extendConfig.code || statusCodes[extendConfig.code];
-      this.status = extendConfig.status;
-      this.message = additionalMsg || extendConfig.message;
-      this.moreinfo = extendConfig.moreinfo;
-    } else if (undefined !== config) {
-      this.statusCode = extendConfig.code || statusCodes[extendConfig.code];
+  } else if (typeof msgData === 'string') {
+    if (undefined != extendedErrorConstant[msgData] || undefined != errorConstant[msgData]) {
+      if (undefined != extendedErrorConstant[msgData]) {
+        config = extendedErrorConstant[msgData];
+      }
+      else if (undefined != errorConstant[msgData]) {
+        config = errorConstant[msgData];
+      }
+      msgData = config.message;
+      this.statusCode = config.code || statusCodes[config.code];
       this.status = config.status;
-      this.message = additionalMsg || config.message;
       this.moreinfo = config.moreinfo;
     } else {
       this.status = "400";
-      if (undefined !== additionalMsg) {
-        this.message = msgKey + " : " + additionalMsg;
-      } else {
-        this.message = msgKey;
-      }
+      this.statusCode = statusCodes[400];
     }
-  } else {
-    if (undefined !== additionalMsg) {
-      if (undefined !== msgKey) {
-        this.status = "400";
-        this.message = msgKey + " : " + additionalMsg;
-      } else {
-        this.status = "500";
-        this.message = "please provide the proper framework configuration";
-      }
-    } else {
-      this.message = msgKey;
-    }
+    this.message = errorUtil.createErrMsg4Obj(msgData, arguments);
+
   }
   return this;
 };
