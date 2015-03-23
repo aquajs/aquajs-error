@@ -12,5 +12,12 @@
     "property": "",
     "message": "Something went wrong. Please try after some time",
     "moreinfo": "Something went wrong. Please try after some time"
+  },
+  "invalidFieldValue": {
+    "status": 400,
+    "code": 40007,
+    "property": "",
+    "message": "Invalid Field Value {0}.Please provide value greater than {1}.",
+    "moreinfo": "Invalid Field Value please insert valid field value"
   }
 }
