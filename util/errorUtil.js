@@ -1,4 +1,3 @@
-var aquaJsError = require('aquajs-error');
 
 exports.createErrMsg4Obj = function (message, argList) {
   return replaceErrorArgs(message, argList);
