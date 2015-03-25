@@ -1,8 +1,6 @@
 "use strict";
 
 var path = require('path'),
-  extendedErrorConstant = require(path.join($dirPaths.serverDir, 'config', 'env', 'extended-error-constants')),
-  errorConstant = require(path.join($dirPaths.serverDir, 'config', 'env', 'error-constants')),
   statusCodes = require('http').STATUS_CODES,
   errorUtil = require(path.join(__dirname, 'util', 'errorUtil'));
 /**
@@ -38,33 +36,19 @@ var AquaJsError = function (msgData) {
   var config,
     customErr = Error.apply(this);
 
-  if (typeof msgData === 'array') { // For List of Errors
-    this.message = msgData;
-  } else if (typeof msgData === 'object') {
+  if ( typeof msgData.getErrors === 'function') { // For multiple of collection of errors as array
+    var errorList =  msgData.getErrors();
+    this.errorJson = errorUtil.createErrMsg4Arr(errorList)
+  } else if (typeof msgData === 'object') { /// this condition is for workflow
     if (msgData.message) {
-      this.message = msgData.message;
+      this.errorJson = msgData.message;
       this.status = msgData.statusCode;
     } else {
-      this.message = msgData;
+      this.errorJson = msgData;
     }
   } else if (typeof msgData === 'string') {
-    if (undefined != extendedErrorConstant[msgData] || undefined != errorConstant[msgData]) {
-      if (undefined != extendedErrorConstant[msgData]) {
-        config = extendedErrorConstant[msgData];
-      }
-      else if (undefined != errorConstant[msgData]) {
-        config = errorConstant[msgData];
-      }
-      msgData = config.message;
-      this.statusCode = config.code || statusCodes[config.code];
-      this.status = config.status;
-      this.moreinfo = config.moreinfo;
-    } else {
-      this.status = "400";
-      this.statusCode = statusCodes[400];
-    }
-    this.message = errorUtil.createErrMsg4Obj(msgData, arguments);
-
+    var error ={};
+    this.errorJson= errorUtil.createErrorObject(msgData,arguments,error);
   }
   return this;
 };
