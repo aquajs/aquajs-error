@@ -1,5 +1,5 @@
 var path = require('path'), extendedErrorConstant = require(path.join($dirPaths.serverDir, 'config', 'env', 'extended-error-constants')),
-  errorConstant = require(path.join($dirPaths.serverDir, 'config', 'env', 'error-constants')), statusCodes = require('http').STATUS_CODES;
+    statusCodes = require('http').STATUS_CODES;
 
 //Error message for the object explicitly
 exports.createErrMsg4Obj = function (message, argList) {
@@ -10,7 +10,8 @@ exports.createErrMsg4Obj = function (message, argList) {
 
 exports.createErrorObject = function (errorKey, argList,errorObj) {
   var config  = extendedErrorConstant[errorKey],msgData;
-  if (!config) {
+  if (!config && isModuleAvailable(path.join($dirPaths.serverDir, 'config', 'env', 'error-constants'))) {
+	var  errorConstant = require(path.join($dirPaths.serverDir, 'config', 'env', 'error-constants'));
     config = errorConstant[errorKey];
   }
   if (config) {
@@ -69,3 +70,11 @@ exports.replaceErrorArgs = function (message, argList) {
   return messageArray.join("");
 };
 
+function isModuleAvailable(fullModulePath) {
+    try {
+        return require.resolve(fullModulePath) ? true : false;
+    }
+    catch (err) {
+        return false;
+    }
+}
