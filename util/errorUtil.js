@@ -25,7 +25,9 @@ exports.createErrorObject = function (errorKey, argList,errorObj) {
     errorObj.statusCode = statusCodes[400];
   }
   errorObj.message = this.replaceErrorArgs(msgData, argList);
-  return errorObj;
+  var errors  = [], errRoot = {} ;
+  errors.push(errorObj)
+  return errors;
 };
 
 exports.createErrMsg4Arr = function (errorList) {

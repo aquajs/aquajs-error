@@ -38,17 +38,17 @@ var AquaJsError = function (msgData) {
 
   if ( typeof msgData.getErrors === 'function') { // For multiple of collection of errors as array
     var errorList =  msgData.getErrors();
-    this.errorJson = errorUtil.createErrMsg4Arr(errorList)
+    this.errors = errorUtil.createErrMsg4Arr(errorList)
   } else if (typeof msgData === 'object') { /// this condition is for workflow
     if (msgData.message) {
-      this.errorJson = msgData.message;
+      this.errors = msgData.message;
       this.status = msgData.statusCode;
     } else {
-      this.errorJson = msgData;
+      this.errors = msgData;
     }
   } else if (typeof msgData === 'string') {
     var error ={};
-    this.errorJson= errorUtil.createErrorObject(msgData,arguments,error);
+    this.errors = errorUtil.createErrorObject(msgData,arguments,error);
   }
   return this;
 };
