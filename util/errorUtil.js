@@ -19,9 +19,9 @@ exports.createErrorObject = function (errorKey, argList,errorObj) {
     errorObj.status = "400";
     errorObj.statusCode = statusCodes[400];
   }
-  var property  =  getProperty(argList)
+  var property  =  getProperty(argList) ;
   if(property){
-    errorObj.property  = getProperty(argList)
+    errorObj.property  = property ;
   }
   errorObj.message = this.replaceErrorArgs(msgData, argList);
   var errors  = [], errRoot = {} ;
