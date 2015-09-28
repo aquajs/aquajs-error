@@ -6,7 +6,7 @@ var path = require('path'), extendedErrorConstant = require(path.join($dirPaths.
 exports.createErrorObject = function (errorKey, argList,errorObj) {
   var config  = extendedErrorConstant[errorKey],msgData;
   if (!config && isModuleAvailable(path.join($dirPaths.serverDir, 'config', 'env', 'error-constants'))) {
-    var  errorConstant = require(path.join($dirPaths.serverDir, 'config', 'env', 'error-constants'));
+	var  errorConstant = require(path.join($dirPaths.serverDir, 'config', 'env', 'error-constants'));
     config = errorConstant[errorKey];
   }
   if (config) {
@@ -19,7 +19,10 @@ exports.createErrorObject = function (errorKey, argList,errorObj) {
     errorObj.status = "400";
     errorObj.statusCode = statusCodes[400];
   }
-  errorObj.property  = getProperty(arguments)
+  var property  =  getProperty(argList)
+  if(property){
+    errorObj.property  = getProperty(argList)
+  }
   errorObj.message = this.replaceErrorArgs(msgData, argList);
   var errors  = [], errRoot = {} ;
   errors.push(errorObj)
@@ -40,8 +43,8 @@ exports.createErrMsg4Arr = function (errorList) {
 
 exports.replaceErrorArgs = function (message, argList) {
   var errorMatchingArgs = new RegExp("\{([0-9]+)\}"),
-      messageArray = message.split(errorMatchingArgs),messageElement,
-      originalArgList = argList;
+    messageArray = message.split(errorMatchingArgs),messageElement,
+    originalArgList = argList;
   if (argList && argList.length > 1) {
     argList = Object.keys(argList).map(function (key) {
       return argList[key]
@@ -68,19 +71,20 @@ exports.replaceErrorArgs = function (message, argList) {
   return messageArray.join("");
 };
 
-function getProperty(argList){
-  argList = Object.keys(argList).map(function (key) {
-    return argList[key]
+function  getProperty(argList){
+  var newArgList =  argList;
+  newArgList = Object.keys(newArgList).map(function (key) {
+    return newArgList[key]
   });
-  argList.shift();
-  return argList.toString();
+  newArgList.shift();
+  return newArgList.toString();
 }
 
 function isModuleAvailable(fullModulePath) {
-  try {
-    return require.resolve(fullModulePath) ? true : false;
-  }
-  catch (err) {
-    return false;
-  }
+    try {
+        return require.resolve(fullModulePath) ? true : false;
+    }
+    catch (err) {
+        return false;
+    }
 }
