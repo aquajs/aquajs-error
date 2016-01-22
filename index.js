@@ -1,7 +1,6 @@
 "use strict";
 
 var path = require('path'),
-  statusCodes = require('http').STATUS_CODES,
   errorUtil = require(path.join(__dirname, 'util', 'errorUtil'));
 /**
  * AquaJS Error Constructor to throw the Error from the framework
@@ -52,6 +51,7 @@ var AquaJsError = function (msgData) {
   }
   return this;
 };
+
 AquaJsError.prototype = Error.prototype;
 
 module.exports = AquaJsError;
