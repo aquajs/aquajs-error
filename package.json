@@ -10,6 +10,16 @@
   "engines": {
     "node": ">=0.6.0"
   },
+  "developers": [
+    "Venkat Rangasamy <vrangasamy@equinix.com>",
+    "Aswini Atibudhi <aatibudhi@equinix.com>",
+    "Tony Pujals <tpujals@equinix.com> (http://twitter.com/subfuzion)",
+    "Peter Svetlichny <psvetlichny@equinix.com> (http://twitter.com/p_svetlichny)",
+    "Uma More <umore@equinix.com>",
+    "Elcina Tuscano <etuscano@equinix.com>",
+    "Chakradhar Jonagam <cjonagam@equinix.com>",
+    "Namratha Ambekar <nambekar@equinix.com>"
+  ],
   "maintainers": [
     {
       "name": "xxxxx",
