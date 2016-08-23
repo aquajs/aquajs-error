@@ -1,5 +1,13 @@
-var path = require('path'), extendedErrorConstant = require(path.join($dirPaths.serverDir, 'config', 'env', 'extended-error-constants')),
-    statusCodes = require('http').STATUS_CODES;
+
+   var path = require('path'),
+       fs = require('fs'),
+       statusCodes = require('http').STATUS_CODES, 
+       extendedErrorConstant= {},
+       extendedErrorFolder= process.env.EXTENDED_ERROR_CONFIG_PATH ||  path.join(process.cwd(), 'config','env' ) ,
+       extendedErrorFile = path.join(extendedErrorFolder,'extended-error-constants.json');
+       if (fs.existsSync(extendedErrorFile) ) {
+	  extendedErrorConstant = require(extendedErrorFile);
+       };
 
 // create the error object of type aquajsError
 

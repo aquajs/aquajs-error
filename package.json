@@ -1,6 +1,6 @@
 {
   "name": "aquajs-error",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "aqua js errror",
   "keywords": [
     "error"
@@ -22,12 +22,8 @@
   ],
   "maintainers": [
     {
-      "name": "xxxxx",
-      "email": "xxxxx"
-    },
-    {
-      "name": "xxxxxx",
-      "email": "xxxxxx"
+      "name": "aatibudhi",
+      "email": "aatibudhi@equinix.com"
     }
   ],
   "bugs": {
@@ -35,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com:equinix/gse-common.git"
+    "url": "git://github.com/%3Aequinix/gse-common.git"
   },
   "publishConfig": {
     "registry": "http://nexus.corp.equinix.com/nexus/content/repositories/Equinix-AquaJS-Release/"
@@ -54,5 +50,20 @@
   "main": "./index.js",
   "gypfile": true,
   "readme": "aqua js error",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "gitHead": "c0cbc6fb8089ead7073ee487edabb94a424b9aab",
+  "_id": "aquajs-error@1.0.3",
+  "_shasum": "8ff13b46d8fc281b7ab28c7c6d1503d2ec919bf0",
+  "_from": "aquajs-error@1.0.3",
+  "_npmVersion": "2.14.12",
+  "_nodeVersion": "4.2.6",
+  "_npmUser": {
+    "name": "aatibudhi",
+    "email": "aatibudhi@equinix.com"
+  },
+  "dist": {
+    "shasum": "8ff13b46d8fc281b7ab28c7c6d1503d2ec919bf0",
+    "tarball": "http://nexus.corp.equinix.com/nexus/content/groups/Equinix-NPM-Release/aquajs-error/-/aquajs-error-1.0.3.tgz"
+  },
+  "_resolved": "http://nexus.corp.equinix.com/nexus/content/groups/Equinix-NPM-Release/aquajs-error/-/aquajs-error-1.0.3.tgz"
 }
